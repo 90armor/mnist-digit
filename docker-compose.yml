@@ -1,16 +1,22 @@
-version: "3.9"
-
 services:
   mnist:
     build: .
     container_name: mnist-digit
     volumes:
+      - .:/app
       - ./train_data:/app/train_data
       - ./test_data:/app/test_data
     environment:
       MPLBACKEND: Agg
       TF_CPP_MIN_LOG_LEVEL: "2"
-    # Default: predict on bundled sample
-    # Override with: docker compose run mnist python train.py
-    #               docker compose run mnist python test.py image.png --show
-    #               docker compose run mnist pytest tests/ -v
+    # Train the model (slow, ~15 min on first run):
+    #   docker compose run --rm mnist python train.py
+    # 
+    # Then test it:
+    #   docker compose run --rm mnist python test.py test_data/image1.png
+    # 
+    # Or run inference on multiple samples:
+    #   docker compose run --rm mnist python test.py --n 100
+    #
+    # Default: prints instructions
+    command: bash -c "echo 'MNIST Digit Recognizer - Docker Compose' && echo '' && echo 'Train model (first time, ~15 min):' && echo '  docker compose run --rm mnist python train.py' && echo '' && echo 'Predict on a test image:' && echo '  docker compose run --rm mnist python test.py test_data/image1.png --show' && echo '' && echo 'Run sanity check:' && echo '  docker compose run --rm mnist python test.py --n 100'"

@@ -148,6 +148,8 @@ def main():
     test_loss, test_acc = model.evaluate(x_test, y_test_cat, verbose=0)
     log.info(f"Test accuracy : {test_acc * 100:.2f}%")
     log.info(f"Test loss     : {test_loss:.4f}")
+
+    model.save(MODEL_PATH)
     log.info(f"\nModel saved  ->  {MODEL_PATH}")
 
     # ── 9. Plot Training Curves ───────────────────────────────────────────────
