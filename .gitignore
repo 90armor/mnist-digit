@@ -1,0 +1,10 @@
+# macOS artifacts
+.DS_Store
+
+# IDE / tooling
+.claude/
+.vscode/
+
+# Training data
+/train_data/
+digit_model.keras

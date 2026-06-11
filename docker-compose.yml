@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  mnist:
+    build: .
+    container_name: mnist-digit
+    volumes:
+      - ./train_data:/app/train_data
+      - ./test_data:/app/test_data
+    environment:
+      MPLBACKEND: Agg
+      TF_CPP_MIN_LOG_LEVEL: "2"
+    # Default: predict on bundled sample
+    # Override with: docker compose run mnist python train.py
+    #               docker compose run mnist python test.py image.png --show
+    #               docker compose run mnist pytest tests/ -v

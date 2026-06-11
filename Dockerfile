@@ -39,7 +39,8 @@ COPY --chown=appuser:appuser config.py conftest.py test.py train.py ./
 COPY --chown=appuser:appuser tests/ ./tests/
 
 # Pre-trained model (~2 MB) — inference works without any volume mounts
-COPY --chown=appuser:appuser digit_model.keras ./
+# Optional: only copy if it exists
+COPY --chown=appuser:appuser digit_model.keras* ./
 
 # Nine bundled PNG samples used for quick demos
 COPY --chown=appuser:appuser test_data/ ./test_data/
