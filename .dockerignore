@@ -1,0 +1,32 @@
+# Version control
+.git/
+.gitignore
+
+# macOS artifacts
+.DS_Store
+
+# IDE / tooling
+.claude/
+.vscode/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+
+# Generated training artifacts — these are produced at runtime, not build time
+training_curves.png
+
+# Large numpy data files (~55 MB) — provided via volume mount at runtime
+train_data/
+
+# Documentation — not needed inside the container
+AGENT_RULES.md
+ARCHITECTURE.md
+ARCHITECTURE_REVIEW.md
+CLAUDE.md
+COMPONENT_GUIDE.md
+PROJECT_OVERVIEW.md
