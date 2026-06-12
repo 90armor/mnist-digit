@@ -30,16 +30,15 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels -r /tmp/requireme
 
 # Non-root user with a predictable UID; owns /app so train.py can write output
 RUN useradd -m -u 1000 appuser \
-    && mkdir -p /app \
-    && chown appuser:appuser /app
+    && mkdir -p /app/src \
+    && chown -R appuser:appuser /app
 
 WORKDIR /app
 
-COPY --chown=appuser:appuser config.py conftest.py test.py train.py ./
-COPY --chown=appuser:appuser tests/ ./tests/
+COPY --chown=appuser:appuser src/config.py src/conftest.py src/test.py src/train.py ./src/
+COPY --chown=appuser:appuser src/tests/ ./src/tests/
 
 # Pre-trained model (~2 MB) — inference works without any volume mounts
-# Optional: only copy if it exists
 COPY --chown=appuser:appuser digit_model.keras* ./
 
 # Nine bundled PNG samples used for quick demos
@@ -58,7 +57,7 @@ ENV MPLBACKEND=Agg \
     TF_CPP_MIN_LOG_LEVEL=2
 
 # Default: predict the bundled sample — works with no volume mounts required.
-# Override: docker run ... python test.py /data/my_digit.png
-#           docker run ... python train.py
-#           docker run ... pytest tests/ -v
-CMD ["python", "test.py", "test_data/image1.png"]
+# Override: docker run ... python src/test.py /data/my_digit.png
+#           docker run ... python src/train.py
+#           docker run ... pytest src/tests/ -v
+CMD ["python", "src/test.py", "test_data/image1.png"]

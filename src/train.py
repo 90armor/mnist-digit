@@ -1,11 +1,11 @@
 """
 train.py - Train a CNN for digit recognition on MNIST
 Saves model as 'digit_model.keras' after training.
-Also saves test data locally to ./train_data/ for use by test.py
+Also saves test data locally to train_data/ for use by test.py
 
-To Train the model:
-pip install tensorflow pillow matplotlib numpy
-python train.py
+To train the model:
+    pip install -r requirements.txt
+    python src/train.py
 """
 
 import logging
@@ -17,7 +17,7 @@ from tensorflow.keras import layers
 import matplotlib.pyplot as plt
 from PIL import Image
 
-from config import DATA_DIR, MODEL_PATH, TrainConfig
+from config import DATA_DIR, MODEL_PATH, CURVES_PATH, TrainConfig
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 log = logging.getLogger(__name__)
@@ -150,7 +150,7 @@ def main():
     log.info(f"Test loss     : {test_loss:.4f}")
 
     model.save(MODEL_PATH)
-    log.info(f"\nModel saved  ->  {MODEL_PATH}")
+    log.info(f"Model saved  ->  {MODEL_PATH}")
 
     # ── 9. Plot Training Curves ───────────────────────────────────────────────
     _, axes = plt.subplots(1, 2, figsize=(12, 4))
@@ -161,13 +161,13 @@ def main():
     axes[1].plot(history.history["val_loss"], label="Val")
     axes[1].set_title("Loss"); axes[1].set_xlabel("Epoch"); axes[1].legend()
     plt.tight_layout()
-    plt.savefig("training_curves.png", dpi=150)
-    log.info("Training curves saved  ->  training_curves.png")
+    plt.savefig(CURVES_PATH, dpi=150)
+    log.info(f"Training curves saved  ->  {CURVES_PATH}")
     plt.show()
 
     log.info("\nProject files after training:")
     log.info(f"  {MODEL_PATH}")
-    log.info("  training_curves.png")
+    log.info(f"  {CURVES_PATH}")
     log.info(f"  {DATA_DIR}/")
     log.info("    train_images.npy   (60,000 samples, 28x28)")
     log.info("    train_labels.npy")

@@ -2,10 +2,10 @@
 test.py - Predict handwritten digits from images of ANY resolution.
 
 Usage:
-    python test.py image.png
-    python test.py image.jpg --show    # USE THIS FOR DEMONSTRATION
-    python test.py                     # sanity check using LOCAL ./train_data/ files
-    python test.py --sample 3          # test a specific sample index from local data
+    python src/test.py image.png
+    python src/test.py image.jpg --show    # show preprocessed patch + result
+    python src/test.py                     # sanity check using local train_data/ files
+    python src/test.py --sample 3          # test a specific sample index from local data
 """
 
 import sys

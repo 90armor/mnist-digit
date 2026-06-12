@@ -17,9 +17,16 @@ The project is structured as a **train → artifact → infer** pipeline across 
 
 ```
 mnist-digit/
-├── config.py                  # Single source of truth: paths, TrainConfig dataclass
-├── train.py                   # Training pipeline entry point
-├── test.py                    # Inference / evaluation entry point
+├── src/
+│   ├── config.py              # Single source of truth: paths, TrainConfig dataclass
+│   ├── train.py               # Training pipeline entry point
+│   ├── test.py                # Inference / evaluation entry point
+│   ├── conftest.py            # Adds src/ to sys.path for pytest
+│   └── tests/
+│       └── test_preprocess.py # 13 pytest tests for preprocessing functions
+│
+├── docs/                      # Project documentation
+├── .ai/                       # Agent instructions and code conventions
 │
 ├── digit_model.keras          # Saved model artifact (written by train.py)
 ├── training_curves.png        # Accuracy & loss plot (written by train.py)
@@ -31,10 +38,6 @@ mnist-digit/
 │   └── test_labels.npy        # (10 000,) int
 │
 ├── test_data/                 # User-supplied inference images (arbitrary PNG)
-│
-├── tests/
-│   └── test_preprocess.py     # 13 pytest tests for preprocessing functions
-├── conftest.py                # Adds project root to sys.path for pytest
 └── requirements.txt           # Pinned runtime + dev dependencies
 ```
 

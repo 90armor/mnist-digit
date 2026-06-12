@@ -83,8 +83,19 @@ There is no client-server separation. Both phases run locally on the same machin
 
 ```
 mnist-digit/
-├── train.py                   # Training pipeline script
-├── test.py                    # Inference / evaluation script
+├── README.md
+│
+├── src/
+│   ├── config.py              # Shared paths and TrainConfig dataclass
+│   ├── train.py               # Training pipeline entry point
+│   ├── test.py                # Inference / evaluation entry point
+│   ├── conftest.py            # pytest sys.path setup
+│   └── tests/
+│       └── test_preprocess.py # 13 pytest unit tests
+│
+├── docs/                      # Project documentation
+├── .ai/                       # Agent instructions and code conventions
+│
 ├── digit_model.keras          # Saved best model (produced by train.py)
 ├── training_curves.png        # Accuracy & loss plot (produced by train.py)
 │
@@ -94,14 +105,9 @@ mnist-digit/
 │   ├── test_images.npy        # (10,000 × 28 × 28) uint8
 │   └── test_labels.npy        # (10,000,) int
 │
-└── test_data/                 # Custom test images (arbitrary resolution PNGs)
-    ├── image1.png
-    ├── image2.png
-    …
-    └── image9.png
+└── test_data/                 # Bundled demo images (arbitrary resolution PNGs)
+    ├── image1.png … image9.png
 ```
-
-> **Note:** `test.py` currently references `./data/` as `DATA_DIR` while `train.py` saves to `./train_data/`. These paths are inconsistent; running the default sanity-check mode in `test.py` will fail unless the path is corrected or data is placed in `./data/`.
 
 ---
 

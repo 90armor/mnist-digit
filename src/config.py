@@ -1,8 +1,11 @@
 from pathlib import Path
 from dataclasses import dataclass
 
-DATA_DIR   = Path("./train_data")
-MODEL_PATH = Path("digit_model.keras")
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+DATA_DIR    = _PROJECT_ROOT / "train_data"
+MODEL_PATH  = _PROJECT_ROOT / "digit_model.keras"
+CURVES_PATH = _PROJECT_ROOT / "training_curves.png"
 
 
 @dataclass
